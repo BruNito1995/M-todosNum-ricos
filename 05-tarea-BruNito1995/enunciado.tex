@@ -1,0 +1,230 @@
+\documentclass[letter, 11pt]{article}
+%% ================================
+%% Packages =======================
+\usepackage[utf8]{inputenc}      %%
+\usepackage[T1]{fontenc}         %%
+\usepackage{lmodern}             %%
+\usepackage[spanish]{babel}      %%
+\decimalpoint                    %%
+\usepackage{fullpage}            %%
+\usepackage{fancyhdr}            %%
+\usepackage{graphicx}            %%
+\usepackage{amsmath}             %%
+\usepackage{color}               %%
+\usepackage{mdframed}            %%
+\usepackage[colorlinks]{hyperref}%%
+%% ================================
+%% ================================
+
+%% ================================
+%% Page size/borders config =======
+\setlength{\oddsidemargin}{0in}  %%
+\setlength{\evensidemargin}{0in} %%
+\setlength{\marginparwidth}{0in} %%
+\setlength{\marginparsep}{0in}   %%
+\setlength{\voffset}{-0.5in}     %%
+\setlength{\hoffset}{0in}        %%
+\setlength{\topmargin}{0in}      %%
+\setlength{\headheight}{54pt}    %%
+\setlength{\headsep}{1em}        %%
+\setlength{\textheight}{8.5in}   %%
+\setlength{\footskip}{0.5in}     %%
+%% ================================
+%% ================================
+
+%% =============================================================
+%% Headers setup, environments, colors, etc.
+%%
+%% Header ------------------------------------------------------
+\fancypagestyle{firstpage}
+{
+  \fancyhf{}
+  \lhead{\includegraphics[height=4.5em]{LogoDFI.jpg}}
+  \rhead{FI3104-1 \semestre\\
+         Métodos Numéricos para la Ciencia e Ingeniería\\
+         Prof.: \profesor}
+  \fancyfoot[C]{\thepage}
+}
+
+\pagestyle{plain}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+%% -------------------------------------------------------------
+%% Environments -------------------------------------------------
+\newmdenv[
+  linecolor=gray,
+  fontcolor=gray,
+  linewidth=0.2em,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  skipabove=\topsep
+  skipbelow=\topsep,
+]{ayuda}
+%% -------------------------------------------------------------
+%% Colors ------------------------------------------------------
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+%% -------------------------------------------------------------
+%% Aliases ------------------------------------------------------
+\newcommand{\scipy}{\texttt{scipy}}
+%% -------------------------------------------------------------
+%% =============================================================
+%% =============================================================================
+%% CONFIGURACION DEL DOCUMENTO =================================================
+%% Llenar con la información pertinente al curso y la tarea
+%%
+\newcommand{\tareanro}{5}
+\newcommand{\fechaentrega}{1/11/2018 23:59 hrs}
+\newcommand{\semestre}{2018B}
+\newcommand{\profesor}{Valentino González}
+%% =============================================================================
+%% =============================================================================
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\begin{center}
+  {\uppercase{\LARGE \bf Tarea \tareanro}}\\
+  Fecha de entrega: \fechaentrega
+\end{center}
+
+
+%% =============================================================================
+%% ENUNCIADO ===================================================================
+\noindent{\large \bf Problema 1}
+
+El oscilador de van der Pool fue propuesto para describir la dinámica de
+algunos circuitos eléctricos. La ecuación es la siguiente:
+
+$$\frac{d^2x}{dt^2} = - k x - \mu (x^2 - a^2) \frac{dx}{dt}$$
+
+donde $k$ es la constante elástica y $\mu$ es un coeficiente de roce. Si $|x| >
+a$ el roce amortigua el movimiento, pero si $|x| < a$ el roce inyecta energía.
+Se puede hacer un cambio de variable para convertir la ecuación a:
+
+$$\frac{d^2y}{ds^2} = - y - \mu^* (y^2 - 1) \frac{dy}{ds}$$
+
+con lo cual ahora la ecuación sólo depende de un parámetro, $\mu^*$. Indique
+cuál es el cambio de variable realizado.
+
+Integre la ecuación de movimiento usando el método de Runge-Kutta de orden 4
+visto en clase. Se pide que Ud. implemente su propia versión del algoritmo
+(escriba un algoritmo genérico para que pueda re-usarlo en el Problema 2 de
+esta misma tarea). Describa la discretización usada y el paso de tiempo. Use
+$\mu^*=1.RRR$, donde $RRR$ son los 3 últimos dígitos de su RUT antes del guión.
+
+Integre la solución hasta $T=20\pi$ (aproximadamente 10 períodos) para las
+siguientes condiciones iniciales:
+
+\begin{align*}
+1) \frac{dy}{ds} = 0; y = 0.1\\
+2) \frac{dy}{ds} = 0; y = 4.0
+\end{align*}
+
+Grafique $y(s)$ y la trayectoria en el espacio $(y, dy/ds)$
+
+\vspace{1.5em}
+\noindent{\large \bf Problema 2}
+
+Considere un péndulo simple que es forzado periódicamente, de manera que su
+movimiento es descrito porla siguiente ecuación:
+
+$$ m L^2 \ddot{\phi} = -mgLsin(\phi) + F_0 cos(\omega t) $$
+
+La frecuencia natural de pequeñas oscilaciones del péndulo es
+$\omega_0=\sqrt{g/L}$ pero para oscilaciónes más grandes, la frecuencia es
+menor. Se espera, por lo tanto, que el péndulo entre en resonancia para
+frecuencias de forzamiento levemente menores que $\omega_0$.
+
+Se pide que Ud. integre numéricamente la ecuación de movimiento y determine
+cuál es la frecuencia de forzamiento para la cual el péndulo alcanza la máxima
+amplitiud (después de oscilar muchas veces).
+
+\vspace{0.5em}
+\noindent\underline{Indicaciones}
+
+\begin{itemize}
+  \item Considere la condición inicial $\phi(0) = \dot{\phi}(0) = 0$.
+  \item Use el método de RK4 implementado para el Problema 1 con un paso
+    temporal $\Delta t$ menor a un centésimo del período natural del péndulo.
+    Explore qué valores funcionan mejor para el paso temporal.
+  \item Considere los siguientes valores para los parámetros del problema:
+    \begin{align*}
+      m = 0.85 * 1.0RRR \\
+      L = 1.75 * 1.0RRR \\
+      F_0 = 0.05 * 1.0RRR
+    \end{align*}
+\end{itemize}
+
+donde $RRR$ son los 3 últimos dígitos de su RUT.
+
+Explique en su informe cuál fue su estrategia para encontrar el valor de la
+frecuencia de forzamiento que produce la máxima amplitud.
+
+\begin{ayuda}
+  \small
+  No olvide incluir su Nombre y RUT en el informe.
+\end{ayuda}
+
+
+\vspace{1em}
+\noindent{\bf Instrucciones importantes.}
+\begin{itemize}
+
+  \item Utilice \texttt{git} durante el desarrollo de la tarea para mantener un
+    historial de los cambios realizados. La siguiente
+    \href{https://education.github.com/git-cheat-sheet-education.pdf}{cheat
+      sheet} le puede ser útil. \textbf{Revisaremos el uso apropiado
+    de la herramienta y asignaremos una fracción del puntaje a este ítem.}
+    Realice cambios pequeños y guarde su progreso (a través de \emph{commits})
+    regularmente. No guarde código que no corre o compila (si lo hace por algún
+    motivo deje un mensaje claro que lo indique). Escriba mensajes claros que
+    permitan hacerse una idea de lo que se agregó y/o cambió de un
+    \texttt{commit} al siguiente.
+
+  \item Revisaremos su uso correcto de \texttt{python}. Si define una función
+    relativametne larga o con muchos parámetros, recuerde escribir el
+    \emph{docstring} que describa los parámetros que recibe la función, el
+    output, y el detalle de qué es lo que hace la función. Recuerde que
+    generalmente es mejor usar varias funciones cortas (que hagan una sola cosa
+    bien) que una muy larga (que lo haga todo).  Utilice nombres explicativos
+    tanto para las funciones como para las variables de su código.  El mejor
+    nombre es aquel que permite entender qué hace la función sin tener que leer
+    su implementación.
+
+  \item También evaluaremos que su código apruebe la guía de estilo sintáctico
+    \href{https://www.python.org/dev/peps/pep-0008/}{\texttt{PEP8}}. En
+    \href{http://pep8online.com}{esta página} puede chequear si su código
+    aprueba \texttt{PEP8}.
+
+  \item La tarea se entrega subiendo su trabajo a github. Clone este
+    repositorio (el que está en su propia cuenta privada), trabaje en el código
+    y en el informe y cuando haya terminado asegúrese de hacer un último
+    \texttt{commit} y luego un \texttt{push} para subir todo su trabajo a
+    github.
+
+  \item El informe debe ser entregado en formato \texttt{pdf}, este debe ser
+    claro sin información de más ni de menos. \textbf{Esto es muy importante,
+    no escriba de más, esto no mejorará su nota sino que al contrario}. La
+    presente tarea probablemente no requiere informes de más de 5 páginas en
+    total (sólo una referencia útil).  Asegúrese de utilizar figuras efectivas
+    y tablas para resumir sus resultados. Revise su ortografía.
+
+  \item No olvide indicar su RUT en el informe.
+
+  \item Repartición de puntaje: 40\% implementación y resolución de los
+    problemas (independiente de la calidad de su código -- 20\% cada problema);
+    45\% calidad del reporte entregado: demuestra comprensión del problema y su
+    solución, claridad del lenguaje, calidad de las figuras utilizadas; 5\%
+    aprueba a no \texttt{PEP8}; 10\% diseño del código: modularidad, uso
+    efectivo de nombres de variables y funciones, docstrings, \underline{uso
+    efectivo de git}, etc.
+
+\end{itemize}
+
+
+%% FIN ENUNCIADO ===============================================================
+%% =============================================================================
+
+\end{document}

@@ -1,0 +1,199 @@
+\documentclass[letter, 11pt]{article}
+%% ================================
+%% Packages =======================
+\usepackage[utf8]{inputenc}      %%
+\usepackage[T1]{fontenc}         %%
+\usepackage{lmodern}             %%
+\usepackage[spanish]{babel}      %%
+\decimalpoint                    %%
+\usepackage{fullpage}            %%
+\usepackage{fancyhdr}            %%
+\usepackage{graphicx}            %%
+\usepackage{amsmath}             %%
+\usepackage{color}               %%
+\usepackage{mdframed}            %%
+\usepackage[colorlinks]{hyperref}%%
+%% ================================
+%% ================================
+
+%% ================================
+%% Page size/borders config =======
+\setlength{\oddsidemargin}{0in}  %%
+\setlength{\evensidemargin}{0in} %%
+\setlength{\marginparwidth}{0in} %%
+\setlength{\marginparsep}{0in}   %%
+\setlength{\voffset}{-0.5in}     %%
+\setlength{\hoffset}{0in}        %%
+\setlength{\topmargin}{0in}      %%
+\setlength{\headheight}{54pt}    %%
+\setlength{\headsep}{1em}        %%
+\setlength{\textheight}{8.5in}   %%
+\setlength{\footskip}{0.5in}     %%
+%% ================================
+%% ================================
+
+%% =============================================================
+%% Headers setup, environments, colors, etc.
+%%
+%% Header ------------------------------------------------------
+\fancypagestyle{firstpage}
+{
+  \fancyhf{}
+  \lhead{\includegraphics[height=4.5em]{LogoDFI.jpg}}
+  \rhead{FI3104-1 \semestre\\
+         Métodos Numéricos para la Ciencia e Ingeniería\\
+         Prof.: \profesor}
+  \fancyfoot[C]{\thepage}
+}
+
+\pagestyle{plain}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+%% -------------------------------------------------------------
+%% Environments -------------------------------------------------
+\newmdenv[
+  linecolor=gray,
+  fontcolor=gray,
+  linewidth=0.2em,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  skipabove=\topsep
+  skipbelow=\topsep,
+]{ayuda}
+%% -------------------------------------------------------------
+%% Colors ------------------------------------------------------
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+%% -------------------------------------------------------------
+%% Aliases ------------------------------------------------------
+\newcommand{\scipy}{\texttt{scipy}}
+%% -------------------------------------------------------------
+%% =============================================================
+%% =============================================================================
+%% CONFIGURACION DEL DOCUMENTO =================================================
+%% Llenar con la información pertinente al curso y la tarea
+%%
+\newcommand{\tareanro}{3}
+\newcommand{\fechaentrega}{11/10/2018 23:59 hrs}
+\newcommand{\semestre}{2018B}
+\newcommand{\profesor}{Valentino González}
+%% =============================================================================
+%% =============================================================================
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\begin{center}
+  {\uppercase{\LARGE \bf Tarea \tareanro}}\\
+  Fecha de entrega: \fechaentrega
+\end{center}
+
+
+%% =============================================================================
+%% ENUNCIADO ===================================================================
+\noindent{\large \bf Problema 1}
+
+El objetivo de este problema es investigar cómo se comporta la interpolación
+con polinomios versus la interpolación spline en algunos casos interesantes.
+
+Considere la función de Runge
+
+$$ f(x) = \frac{1}{1 + 25 x^2} $$
+
+\noindent en el intervalo $[-1, 1]$. Divida el intervalo en 4 tramos
+equiespaciados (es decir, samplee 5 puntos en el intervalo $[-1, 1]$). Ahora
+interpole un polinomio (usando, por ejemplo, el método de Lagrange) que pase
+por esos 5 puntos. Haga lo mismo usando una interpolación spline.
+
+Ahora aumente secuencialmente el número de puntos y compruebe cómo se comportan
+los dos métodos (mejoran?, empeoran?, es lo que esperaba?).
+
+\begin{ayuda}
+  \noindent {\bf Nota.}
+
+  Puede programar su propio método de Lagrange y/o spline, o puede utilizar
+  alguna librería que le parezca adecuada. Investigue, por ejemplo, el módulo
+  de interpolación de \texttt{scipy}. Si decide usar una librería, asegúrese de
+  entender los detalles de las implementaciones (¿qué pasa en los extremos de
+  la interpolación \texttt{spline}, por ejemplo?). Incluya esta información en
+  el informe.
+\end{ayuda}
+
+\vspace{1em}
+\noindent{\large \bf Problema 2}
+
+En este problema exploraremos una de las múltiples aplicaciones para los
+métodos de interpolación: la estimación de datos faltantes y la extrapolación.
+
+El archivo \texttt{GLB.Ts+dSST-short.csv} es una archivo de datos separado por
+comas. Los datos provienen del \emph{Goddard Institute for Space Science}
+(GISS) y contienen información sobre las anomalías de temperatura medidas en la
+tierra y los océanos a lo largo de los años. Para ser precisos, la columna
+titulada \texttt{J-D} indica la diferencia entre la temperatura base (elegida
+como la temperatura promedio entre los años 1951 y 1980) y el promedio
+anual (\emph{January-December}) para ese año, el cual se indica en la columna
+titulada \texttt{Year}.
+
+\vspace{0.5em}
+\noindent a) Estime el valor de la anomalía de temperatura promedio para el año
+2011 y compárelo con el valor medido que fue 0.58. Explique cómo hizo la
+estimación y por qué eligió hacerla de esa manera. ¿Puede explicar la
+diferencia entre su estimación y el valor real medido?
+
+\vspace{0.5em}
+\noindent b) Estime el valor que tendrá la anomalía de temperatura promedio
+para el año 2018. Explique cómo hizo la estimación y cómo esta depende del
+método escogido y sus detalles.
+
+\begin{ayuda}
+  - Utilice métodos de interpolación que pasen por todos los puntos. Más
+  adelante veremos otros métodos que interpolan funciones suaves sin pasar
+  exactamente por todos los puntos.
+
+  \noindent- Si le interesa obtener más información sobre los datos utilizados
+  en esta pregunta, consulte la siguiente página:
+  \href{https://data.giss.nasa.gov/gistemp/}{https://data.giss.nasa.gov/gistemp/}
+\end{ayuda}
+
+\pagebreak
+\noindent{\bf Instrucciones importantes.}
+\begin{itemize}
+
+  \item Utilice \texttt{git} durante el desarrollo de la tarea para mantener un
+    historial de los cambios realizados. La siguiente
+    \href{https://education.github.com/git-cheat-sheet-education.pdf}{cheat
+      sheet} le puede ser útil. {\bf Esta vez revisaremos el uso apropiado de
+    la herramienta y asignaremos una fracción del puntaje a este ítem.} Realice
+    cambios pequeños y guarde su progreso (a través de \emph{commits})
+    regularmente. No guarde código que no corre o compila (si lo hace por algún
+    motivo deje un mensaje claro que lo indique). Escriba mensajes claros que
+    permitan hacerse una idea de lo que se agregó de un \texttt{commit} al
+    siguiente.
+
+  \item También comenzaremos a revisar su uso correcto de python. Si define una
+    función relativamente larga o con muchos parámetros, recuerde escribir el
+    \emph{docstring} que describa los parámetros que recibe la función, el
+    output, y el detalle de qué es lo que hace la función. Recuerde que
+    generalmente es mejor usar varias funciones cortas (que hagan una sola cosa
+    bien) que una muy larga (que lo haga todo).  Utilice nombres explicativos
+    tanto para las funciones como para las variables de su código. El mejor
+    nombre es aquel que permite entender qué hace la función sin tener que leer
+    su implementación.
+
+  \item La tarea se entrega subiendo su trabajo a github. Clone este
+    repositorio (el que está en su propia cuenta privada), trabaje en el código
+    y en el informe y cuando haya terminado asegúrese de hacer un último
+    \texttt{commit} y luego un \texttt{push} para subir todo su trabajo a
+    github.
+
+  \item El informe debe ser entregado en formato \texttt{pdf}, este debe ser
+    claro sin información de más ni de menos. Esto es importante, no escriba de
+    más, esto no mejorará su nota sino que al contrario. Asegúrese de utilizar
+    figuras efectivas y tablas para resumir sus resultados. Revise su
+    ortografía.
+
+\end{itemize}
+%% FIN ENUNCIADO ===============================================================
+%% =============================================================================
+\end{document}
