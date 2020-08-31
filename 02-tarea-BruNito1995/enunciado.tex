@@ -1,0 +1,214 @@
+\documentclass[letter, 11pt]{article}
+%% ================================
+%% Packages =======================
+\usepackage[utf8]{inputenc}      %%
+\usepackage[T1]{fontenc}         %%
+\usepackage{lmodern}             %%
+\usepackage[spanish]{babel}      %%
+\usepackage{fullpage}            %%
+\usepackage{fancyhdr}            %%
+\usepackage{graphicx}            %%
+\usepackage{amsmath}             %%
+\usepackage{color}               %%
+\usepackage{mdframed}            %%
+\usepackage[colorlinks]{hyperref}%%
+%% ================================
+%% ================================
+
+%% ================================
+%% Page size/borders config =======
+\setlength{\oddsidemargin}{0in}  %%
+\setlength{\evensidemargin}{0in} %%
+\setlength{\marginparwidth}{0in} %%
+\setlength{\marginparsep}{0in}   %%
+\setlength{\voffset}{-0.5in}     %%
+\setlength{\hoffset}{0in}        %%
+\setlength{\topmargin}{0in}      %%
+\setlength{\headheight}{54pt}    %%
+\setlength{\headsep}{1em}        %%
+\setlength{\textheight}{8.5in}   %%
+\setlength{\footskip}{0.5in}     %%
+%% ================================
+%% ================================
+
+%% =============================================================
+%% Headers setup, environments, colors, etc.
+%%
+%% Header ------------------------------------------------------
+\fancypagestyle{firstpage}
+{
+  \fancyhf{}
+  \lhead{\includegraphics[height=4.5em]{LogoDFI.jpg}}
+  \rhead{FI3104-1 \semestre\\
+         Métodos Numéricos para la Ciencia e Ingeniería\\
+         Prof.: \profesor}
+  \fancyfoot[C]{\thepage}
+}
+
+\pagestyle{plain}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+%% -------------------------------------------------------------
+%% Environments -------------------------------------------------
+\newmdenv[
+  linecolor=gray,
+  fontcolor=gray,
+  linewidth=0.2em,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  skipabove=\topsep
+  skipbelow=\topsep,
+]{ayuda}
+%% -------------------------------------------------------------
+%% Colors ------------------------------------------------------
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+%% -------------------------------------------------------------
+%% Aliases ------------------------------------------------------
+\newcommand{\scipy}{\texttt{scipy}}
+%% -------------------------------------------------------------
+%% =============================================================
+
+%% =============================================================================
+%% CONFIGURACION DEL DOCUMENTO =================================================
+%% Llenar con la información pertinente al curso y la tarea
+%%
+\newcommand{\tareanro}{2}
+\newcommand{\fechaentrega}{4/10/2018 23:59 hrs}
+\newcommand{\semestre}{2018B}
+\newcommand{\profesor}{Valentino González}
+%% =============================================================================
+%% =============================================================================
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\begin{center}
+  {\uppercase{\LARGE \bf Tarea \tareanro}}\\
+  Fecha de entrega: \fechaentrega
+\end{center}
+
+
+%% =============================================================================
+%% ENUNCIADO ===================================================================
+\noindent{\large \bf Problema 1 (50\%)}
+
+Ud. trabaja para una compañia eléctrica cableando torres de tensión. Suponga
+que las torres de tensión están separadas por 20 metros y que la compañia tiene
+una política estricta: el cable debe caer 7.5 metros en el punto medio entre
+dos torres consecutivas. La compañia le ha pedido a Ud. que calcule el largo
+que debe tener el cable necesario.
+
+Tras investigar un poco Ud. encuentra que la función que describe la forma del
+cable colgado de dos extremos se llama catenaria y tiene la siguiente forma:
+
+$$ f(x) = \frac{a}{2} \left( e^{(x-x_0)/2} + e^ {(x-x_0)/2} \right) $$
+
+\noindent donde $x_0$ es el punto mínimo de la catenaria (el punto medio entre
+las dos torres en este caso) y $a$ es un parámetro que controla cuanto se
+``abre'' la catenaria.
+
+\begin{ayuda}
+  \small
+  \noindent {\bf Ayuda.}
+  Recuerde que el largo de una curva entre los puntos $x_1$ y $x_2$ está dado
+  por:
+
+  $$ l = \int_{x_1}^{x_2}dx\sqrt{1 + f'(x)^2} $$
+
+\end{ayuda}
+
+Para este problema se pide que Ud. implemente su propio algoritmo para
+encontrar raíces de una función (lo necesitará para determinar el parámetro $a$
+de la catenaria). Justifique su elección de algoritmo. Para la integral puede
+utilizar cualquier algoritmo que estime conveniente y no es necesario que
+escriba uno Ud. mismo (puede usar uno de \scipy, por ejemplo).
+
+
+\vspace{1.5em}
+\noindent{\large \bf Problema 2 (50\%)}
+
+Considere las siguientes funciones:
+% \begin{equation}
+  \begin{align}
+    F_1(x, y) &= x^4 + y^4 - 15 \label{eq1}\\
+    F_2(x, y) &= x^3y - xy^3 - y/2 - 1.RRR \label{eq2}
+  \end{align}
+% \end{equation}
+
+\noindent donde $RRR$ representa los últimos 3 dígitos de su RUT (antes del
+dígito verificador). Encuentre todos los puntos $(x, y)$ para los cuales las
+funciones se hacen simultáneamente cero.
+
+\begin{ayuda}
+  \small
+  \noindent {\bf Ayuda.}
+
+  Se recomienda partir graficando las funciones. Para visualizar estas
+  funciones se requiere alguna forma de gráfico 3D. Una forma efectiva de
+  visualización para este caso es un plot de superficie en que la tercera
+  dimensión está representada por un mapa de colores combinada con un mapa de
+  contornos (ver ejemplo adjunto \texttt{contourplot.py}). En particular, en
+  este caso estamos interesados en el contorno al nivel cero pues este
+  representa todos los puntos en que una determinada función se hace cero .
+
+  Al hacer lo anterior se dará cuenta que el nivel cero de $F_1$ es una curva
+  cerrada. Una idea que le puede servir, es intentar recorrer esa curva cerrada
+  buscando los puntos en que la otra función, $F_2$, se hace cero. Es decir,
+  Ud.  puede implementar un algoritmo similar al visto en clase para la
+  bisección, pero que en vez de acercar los puntos $a$ y $b$ en 1D, lo haga a
+  lo largo de la curva determinada por $F_1(x, y)=0$. Para eso necesitará
+  encontrar una forma paramétrica de dicha curva (hint: $x(t) \propto
+  sign(sin(t)) * \sqrt[4]{sin^2(t)}$; piense en $y(t)$ y el dominio de t).
+
+\end{ayuda}
+
+Para esta pregunta no es necesario que implemente su propio algoritmo para la
+búsquea de raíces, puede usar alguno de \scipy~u otro que Ud. estime
+conveniente (o programar el suyo propio si lo desea). Explique su elección.
+
+Es importante que describa la estrategia utilizada para resolver el problema.
+En particular, explique cómo eligió los valores iniciales de $a$ y $b$ para el
+método de la bisección para cada uno de los ceros.
+
+\vspace{1em} 
+\noindent {\bf (0.5 pts.)} Hay un mensaje escondido en el \texttt{log} (la
+bitácora) de este repositorio. En su informe diga cuál es el mensaje grabado en
+el \texttt{commit del 27/09/2018 a las 11:58:13}. Explique qué pasos siguió
+para encontrarlo.
+
+\vspace{1em}
+\noindent{\bf Instrucciones importantes.}
+\begin{itemize}
+
+  \item Utilice \texttt{git} durante el desarrollo de la tarea para mantener un
+      historial de los cambios realizados. La siguiente
+      \href{https://education.github.com/git-cheat-sheet-education.pdf}{cheat
+      sheet} le puede ser útil. Esta vez requeriremos que haya al menos 2
+      commits suyos a lo largo del desarrollo pero no revisaremos que tengan
+      mucho sentido. Lo importante, por ahora, es que aprenda la mecánica.
+
+  \item La tarea se entrega subiendo su trabajo a github. Clone este
+      repositorio (el que está en su propia cuenta privada), trabaje en el
+      código y en el informe (idealmente haga \texttt{commits} a medida que
+      progresa) y cuando haya terminado asegúrese de hacer un último
+      \texttt{commit} y luego un \texttt{push} para subir todo su trabajo a
+      github.
+
+  \item El informe debe ser entregado en formato \texttt{pdf}, este debe ser
+      claro sin información de más ni de menos. Esto es importante, no escriba
+      de más, esto no mejorará su nota sino que al contrario. Asegúrese de
+      utilizar figuras efectivas y tablas para resumir sus resultados. 4 a 5
+      páginas son más que suficientes para este informe (incluyendo figuras y
+      tablas si corresponde).
+  \item {\bf Revise su ortografía.}
+
+  \item No olvide indicar su RUT en el informe.
+
+\end{itemize}
+
+%% FIN ENUNCIADO ===============================================================
+%% =============================================================================
+
+\end{document}
