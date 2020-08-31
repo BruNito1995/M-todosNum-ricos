@@ -1,0 +1,193 @@
+\documentclass[letter, 11pt]{article}
+%% ================================
+%% Packages =======================
+\usepackage[utf8]{inputenc}      %%
+\usepackage[T1]{fontenc}         %%
+\usepackage{lmodern}             %%
+\usepackage[spanish]{babel}      %%
+\usepackage{fullpage}            %%
+\usepackage{fancyhdr}            %%
+\usepackage{graphicx}            %%
+\usepackage{amsmath}             %%
+\usepackage{color}               %%
+\usepackage{mdframed}            %%
+\usepackage[colorlinks]{hyperref}%%
+%% ================================
+%% ================================
+
+%% ================================
+%% Page size/borders config =======
+\setlength{\oddsidemargin}{0in}  %%
+\setlength{\evensidemargin}{0in} %%
+\setlength{\marginparwidth}{0in} %%
+\setlength{\marginparsep}{0in}   %%
+\setlength{\voffset}{-0.5in}     %%
+\setlength{\hoffset}{0in}        %%
+\setlength{\topmargin}{0in}      %%
+\setlength{\headheight}{54pt}    %%
+\setlength{\headsep}{1em}        %%
+\setlength{\textheight}{8.5in}   %%
+\setlength{\footskip}{0.5in}     %%
+%% ================================
+%% ================================
+
+%% =============================================================
+%% Headers setup, environments, colors, etc.
+%%
+%% Header ------------------------------------------------------
+\fancypagestyle{firstpage}
+{
+  \fancyhf{}
+  \lhead{\includegraphics[height=4.5em]{LogoDFI.jpg}}
+  \rhead{FI3104-1 \semestre\\
+         Métodos Numéricos para la Ciencia e Ingeniería\\
+         Prof.: \profesor}
+  \fancyfoot[C]{\thepage}
+}
+
+\pagestyle{plain}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+%% -------------------------------------------------------------
+%% Environments -------------------------------------------------
+\newmdenv[
+  linecolor=gray,
+  fontcolor=gray,
+  linewidth=0.2em,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  skipabove=\topsep
+  skipbelow=\topsep,
+]{ayuda}
+%% -------------------------------------------------------------
+%% Colors ------------------------------------------------------
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+%% -------------------------------------------------------------
+%% Aliases ------------------------------------------------------
+\newcommand{\scipy}{\texttt{scipy}}
+%% -------------------------------------------------------------
+%% =============================================================
+%% =============================================================================
+%% CONFIGURACION DEL DOCUMENTO =================================================
+%% Llenar con la información pertinente al curso y la tarea
+%%
+\newcommand{\tareanro}{12}
+\newcommand{\fechaentrega}{22/12/2018 23:59 hrs}
+\newcommand{\semestre}{2018B}
+\newcommand{\profesor}{Valentino González}
+%% =============================================================================
+%% =============================================================================
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\begin{center}
+  {\uppercase{\LARGE \bf Tarea \tareanro}}\\
+  Fecha de entrega: \fechaentrega
+\end{center}
+
+
+%% =============================================================================
+%% ENUNCIADO ===================================================================
+\noindent{\large \bf Problema 1}
+
+En esta Tarea continuaremos nuestro análisis de los datos del \emph{Goddard
+Institute for Space Science} (GISS) sobre la temperatura del planeta pero esta
+vez utilizaremos un análisis Bayesiano de los datos.
+
+Considere nuevamente los datos del archivo \texttt{GLB.Ts+dSST.csv}, en
+específico, la columna \texttt{``J-D''} que indica la anomalía de temperatura
+promedio en el período Enero--Diciembre de cada año. Probaremos los siguientes
+dos modelos paramétricos:\\
+
+\noindent Modelo 1: $JD = a_0 + a_1 \times yr + a_2 \times yr^2$; en este modelo
+los parámetros son $(a_0, a_1, a_2)$.
+
+\noindent Modelo 2: $JD = A_0 + exp((yr-yr_0) / \tau)$; parámetros $(A_0, yr_0,
+\tau)$.\\
+
+\noindent En ambos modelos $JD$ corresponde a la columna \texttt{``J-D''} y
+$yr$ a la columna \texttt{``Year''}.
+
+\begin{enumerate}
+
+  \item Utilizando primero un estimador de máxima verosimilitud, encuentre los
+    mejores parámetros para ambos modelos.
+
+  \item Ahora utilice el teorema de Bayes para calcular la probabilidad
+    posterior para los parámetros de cada uno de los modelos. Note que en el
+    modelo 2, el dominio de $yr_0$ y $\tau$ son los reales positivos. Indique y
+    justifique claramente las probabilidades a priori que utilizó. Reporte las
+    probabilidades marginales para cada parámetro mediante un gráfico, la
+    esperanza $E[\theta]$ para cada parámetro y el intervalo de credibilidad del
+    68\% (el equivalente al intervalo de confianza).
+
+  \item Finalmente utlice comparación Bayesiana de modelos para decidir qué
+    modelo es el que repesenta mejor los datos. Justifique claramente su
+    elección.
+
+\end{enumerate}
+
+
+\noindent{\bf Instrucciones importantes.}
+\begin{itemize}
+
+\item Repartición de puntaje: 40\% implementación y resolución del problema
+  (independiente de la calidad de su código); 45\% calidad del reporte
+  entregado: demuestra comprensión de los problemas y su solución, claridad del
+  lenguaje, calidad de las figuras utilizadas; 5\% aprueba a no \texttt{PEP8};
+  10\% diseño del código: modularidad, uso efectivo de nombres de variables y
+  funciones, docstrings, \underline{uso de git}, etc.
+
+\item El informe debe ser entregado en formato \texttt{pdf}, este debe ser
+  claro sin información de más ni de menos. \textbf{Esto es muy importante, no
+  escriba de más, esto no mejorará su nota sino que al contrario}. La presente
+  tarea probablemente no requiere informes de más de 4 páginas. Asegúrese de
+  utilizar figuras efectivas y tablas para resumir sus resultados. Revise su
+  ortografía.
+
+  \item Evaluaremos su uso correcto de \texttt{python}. Si define una función
+  relativametne larga o con muchos parámetros, recuerde escribir el
+  \emph{docstring} que describa los parámetros que recibe la función, el
+  output, y el detalle de qué es lo que hace la función. Recuerde que
+  generalmente es mejor usar varias funciones cortas (que hagan una sola cosa
+  bien) que una muy larga (que lo haga todo).  Utilice nombres explicativos
+  tanto para las funciones como para las variables de su código. El mejor
+  nombre es aquel que permite entender qué hace la función sin tener que leer
+  su implementación ni su \emph{docstring}.
+
+\item Su código debe aprobar la guía sintáctica de estilo
+  (\href{https://www.python.org/dev/peps/pep-0008/}{\texttt{PEP8}}). En
+  \href{http://pep8online.com}{esta página} puede chequear si su código aprueba
+  \texttt{PEP8}.
+
+\item Utilice \texttt{git} durante el desarrollo de la tarea para mantener un
+  historial de los cambios realizados. La siguiente
+  \href{https://education.github.com/git-cheat-sheet-education.pdf}{cheat
+    sheet} le puede ser útil. {\bf Revisaremos el uso apropiado de la
+  herramienta y asignaremos una fracción del puntaje a este ítem.} Realice
+  cambios pequeños y guarde su progreso (a través de \emph{commits})
+  regularmente. No guarde código que no corre o compila (si lo hace por algún
+  motivo deje un mensaje claro que lo indique). Escriba mensajes claros que
+  permitan hacerse una idea de lo que se agregó y/o cambió de un
+  \texttt{commit} al siguiente.
+
+\item Al hacer el informe usted debe decidir qué es interesante y agregar las
+  figuras correspondientes. No olvide anotar los ejes, las unidades e incluir
+  una \emph{caption} o título que describa el contenido de cada figura.
+
+\item La tarea se entrega subiendo su trabajo a github. Trabaje en el código y
+  en el informe, haga \textit{commits} regulares y cuando haya terminado
+  asegúrese de hacer un último \texttt{commit} y luego un \texttt{push} para
+  subir todo su trabajo a github. \textbf{REVISE SU REPOSITORIO PARA ASEGURARSE
+  QUE SUBIÓ LA TAREA. SI UD. NO PUEDE VER SU INFORME EN GITHUB.COM, TAMPOCO
+PODREMOS NOSOTROS.}
+
+\end{itemize}
+
+%% FIN ENUNCIADO ===============================================================
+%% =============================================================================
+
+\end{document}

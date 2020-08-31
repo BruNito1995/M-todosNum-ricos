@@ -1,0 +1,316 @@
+\documentclass[letter, 11pt]{article}
+%% ================================
+%% Packages =======================
+\usepackage[utf8]{inputenc}      %%
+\usepackage[T1]{fontenc}         %%
+\usepackage{lmodern}             %%
+\usepackage[spanish]{babel}      %%
+\decimalpoint                    %%
+\usepackage{fullpage}            %%
+\usepackage{fancyhdr}            %%
+\usepackage{graphicx}            %%
+\usepackage{amsmath}             %%
+\usepackage{color}               %%
+\usepackage{mdframed}            %%
+\usepackage[colorlinks]{hyperref}%%
+%% ================================
+%% ================================
+
+%% ================================
+%% Page size/borders config =======
+\setlength{\oddsidemargin}{0in}  %%
+\setlength{\evensidemargin}{0in} %%
+\setlength{\marginparwidth}{0in} %%
+\setlength{\marginparsep}{0in}   %%
+\setlength{\voffset}{-0.5in}     %%
+\setlength{\hoffset}{0in}        %%
+\setlength{\topmargin}{0in}      %%
+\setlength{\headheight}{54pt}    %%
+\setlength{\headsep}{1em}        %%
+\setlength{\textheight}{8.5in}   %%
+\setlength{\footskip}{0.5in}     %%
+%% ================================
+%% ================================
+
+%% =============================================================
+%% Headers setup, environments, colors, etc.
+%%
+%% Header ------------------------------------------------------
+\fancypagestyle{firstpage}
+{
+  \fancyhf{}
+  \lhead{\includegraphics[height=4.5em]{LogoDFI.jpg}}
+  \rhead{FI3104-1 \semestre\\
+         Métodos Numéricos para la Ciencia e Ingeniería\\
+         Prof.: \profesor}
+  \fancyfoot[C]{\thepage}
+}
+
+\pagestyle{plain}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+%% -------------------------------------------------------------
+%% Environments -------------------------------------------------
+\newmdenv[
+  linecolor=gray,
+  fontcolor=gray,
+  linewidth=0.2em,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  skipabove=\topsep
+  skipbelow=\topsep,
+]{ayuda}
+%% -------------------------------------------------------------
+%% Colors ------------------------------------------------------
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+%% -------------------------------------------------------------
+%% Aliases ------------------------------------------------------
+\newcommand{\scipy}{\texttt{scipy}}
+%% -------------------------------------------------------------
+%% =============================================================
+%% =============================================================================
+%% CONFIGURACION DEL DOCUMENTO =================================================
+%% Llenar con la información pertinente al curso y la tarea
+%%
+\newcommand{\tareanro}{10}
+\newcommand{\fechaentrega}{6/12/2018 23:59 hrs}
+\newcommand{\semestre}{2018B}
+\newcommand{\profesor}{Valentino González}
+%% =============================================================================
+%% =============================================================================
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\begin{center}
+  {\uppercase{\LARGE \bf Tarea \tareanro}}\\
+  Fecha de entrega: \fechaentrega
+\end{center}
+
+
+%% =============================================================================
+%% ENUNCIADO ===================================================================
+
+\noindent{\large \bf Problema 1}
+
+El archivo adjunto \texttt{correlacion.dat} contiene 3 columnas:
+
+
+\noindent - \emph{year}: el año de la medición.
+
+\noindent - \emph{N\_MPhD}: el número total de Ph.D.'s en Matemáticas otorgados
+  durante el correspondiente año en Estados Unidos.
+
+\noindent - \emph{U}: la reserva de Uranio enriquecido (peso en libras) almacenado en
+  plantas nucleares de Estados Unidos durante el correspondiente año (no
+  pregunten cómo lo averigué, pero los datos son reales).
+
+\vspace{1em}
+Queremos responder 2 preguntas sutilmente distintas:
+
+\noindent\textbf{1)} ¿Cuánto deben bajar las reservas de Uranio para que nadie
+obtenga un doctorado en Matemáticas?
+
+\noindent\textbf{2)} ¿Cuántos Ph.D. se deberían graduar en un año para que las
+reservas de Uranio bajaran a cero?
+
+Para responder estas preguntas, necesitamos extrapolar la correlación que
+existe entre estas dos cantidades.
+
+\vspace{0.5em}
+\noindent\textbf{Responda las siguientes preguntas:}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{enumerate}
+
+\item El archivo contiene 13 filas, es decir, 13 puntos. ¿Por qué es mala idea
+  fitear un polinomio de orden 12 a los puntos para obtener respuesta a
+  nuestras preguntas 1) y 2)?
+
+\item Responda la pregunta 1) ajustando un polinomio $p = p(U)$ de orden 1 a
+  los 13 puntos y encontrando dónde es que el polinomio intersecta al eje
+  \emph{y} (\emph{=N\_MPhD}). (Puede que la respuesta sea una cantidad de
+  Uranio negativa, es decir, imposible que no haya doctorados en matemáticas).
+  Para hacer este ajuste defina una función de mérito como $\chi^2$ y busque su
+  mínimo. Tiene libertad de usar el método que quiera pero describa en detalle
+  qué hizo.
+
+\item Responda la pregunta 2) ajustando un polinomio $p = p(N\_MPhD)$ de orden
+  1 a los 13 puntos y encontrando donde es que el polinomio intersecta al eje
+  \emph{y} ($=U$). Mismo método que en la parte anterior pero ajustando $U$
+  como función de $N\_MPhD$ en vez de $N\_MPhD$ como función de $U$.
+
+\item Ahora dese cuenta de que los polinomios de las partes b y c \underline{no
+  son equivalentes}. Intente responder la pregunta 1 usando el polinomio de la
+  parte c y la pregunta 2 usando el polinomio de la parte b y verá que no son
+  equivalentes (también puede graficar los dos polinomios juntos). ¿Por qué es
+  que no son equivalentes?
+
+  (Si quiere, puede intentar escribir una función de mérito tipo $\chi^2$ pero
+  que sí sea simétrica, es decir, que el resultado sea independiente de si
+  ajustamos $N\_MPhD$ como función de $U$ o si ajustamos $U$ como función de
+  $N\_MPhD$.)
+
+\item Explore qué pasa cuando usa polinomios de orden mayor para responder las
+  mismas preguntas y explique sus resultados. Explore al menos un polinomio de
+  orden 5 y estudie su comportamiento.
+
+\end{enumerate}
+
+\noindent\textbf{*IMPORTANTE}: Obviamente nada de esto tiene sentido,
+correlación no implica causalidad.
+
+
+\pagebreak
+\noindent{\large \bf Problema 2}
+
+\begin{ayuda}
+  En el problema anterior ajustamos un polinomio a un set de datos, un problema
+  clásico de regresión lineal que puede resolverse de manera exacta invirtiendo
+  una matriz. En el problema a continuación exploramos una función no-lineal.
+  En este caso necesitamos otro algoritmo distinto para la minimización, por
+  ejemplo, un algoritmo tipo Levenberg-Marquardt.
+\end{ayuda}
+
+La técnica de la espectroscopía, que se usa en múltiples disciplinas, consiste
+en estudiar la radiación emitida por una fuente como función de la longitud de
+onda. Las características de los espectros observados tales como la intensidad
+y forma del contínuo y de las líneas de emisión y absorción, nos permiten
+entender las propiedades físicas del ente emisor de la radiación.
+
+En la figura a continuación, se observa un segmento del espectro de una fuente
+que muesta radiación contínua (con una leve pendiente) y una línea de emisión.
+Las unidades son de energía emitida por unidad de tiempo por unidad de área por
+unidad de frecuencia $f_\nu [{\rm erg\ s^{-1} Hz^{-1} cm^{-2}}]$ vs.  longitud
+de onda en [Angstrom]. Su trabajo consiste en modelar simultáneamente el
+contínuo y la línea de absorción de la figura (los datos los encontrará en el
+archivo \texttt{espectro.dat}).
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{spectrum.png}
+\end{center}
+
+Las líneas de emisión son en teoría casi infinitamente delgadas (hay un
+ensanchamiento intrínseco dado por el principio de incertidumbre pero es muy
+pequeño). Las observaciones, sin embargo, siempre muestran líneas mucho más
+anchas. Dependiendo del mecanismo físico que produce el ensanchamiento, la
+forma de la línea será distinta. Ud. deberá modelar la línea asumiendo el
+mechanismo de ensanchamiento más típico, el cual produce líneas gaussianas.
+
+El modelo completo será el de una línea recta para el contínuo (2 parámetros)
+más una función gaussiana con 3 parámetros: amplitud, centro y varianza. Es
+decir, debe modelar 5 parámetros a la vez.
+
+  \begin{ayuda}
+    \texttt{scipy.stats.norm} implementa la función Gaussiana si no quiere
+    escribirla Ud. mismo. La forma de usarla es la siguiente: \texttt{g = A *
+    scipy.stats.norm(loc=mu, scale=sigma).pdf(x)}; donde x es la longitud de
+    onda donde evaluar la función.
+  \end{ayuda}
+
+Produzca un gráfico que muestre el espectro observado y el mejore fit obtenido.
+Provea una tabla con los mejores parámetros, su error estándard y el valor de
+$\chi^2_{\rm reducido}$ en su mínimo.
+
+
+\begin{ayuda}
+Para buscar el mejor modelo recuerde que es importante dar un punto de partida
+que sea cercano para que los algoritmos converjan de manera efectiva. Ud. debe
+idear un método para buscar ese punto de partida.
+\end{ayuda}
+
+
+\vspace{1em}
+\noindent{\large \bf Problema 3}
+
+En la Tarea nro. 3. utilizamos datos del \emph{Goddard Institute for Space
+Science} (GISS) sobre la temperatura del planeta. Más específicamente,
+utilizamos el archivo \texttt{GLB.Ts+dSST-short.csv} que contiene información
+sobre las anomalías de temperatura medidas en la Tierra y los océanos (vea la
+Tarea 3 y la página oficial
+\href{https://data.giss.nasa.gov/gistemp/}{https://data.giss.nasa.gov/gistemp/}
+para más detalles).
+
+Utilizando estos mismos datos (versión más completa \texttt{GLB.Ts+dSST.csv}),
+y asumiendo que no hacemos nada para alterar la tendencia mostrada por los
+datos, estime para qué año la temperatura habrá cambiado en 2 grados celsius.
+
+Explique en detalle cómo hizo la estimación (por ejemplo, ¿qué forma
+paramétrica escogió?) y qué algoritmo de minimización usó. Provea un intervalo
+de confianza para el año de la catástrofe más grande en la historia de la
+humanidad
+(\href{http://theconversation.com/why-is-climate-changes-2-degrees-celsius-of-warming-limit-so-important-82058}{artículo
+random al respecto}).
+
+
+\vspace{2em}
+\noindent{\bf Instrucciones importantes.}
+\begin{itemize}
+
+\item {\bf Por 0.5 ptos. extra} utilizables en esta tarea. Hay una imágen
+  escondida en el repositorio (en un \texttt{commit} antiguo). Revise la
+  bitácora (\texttt{git log}) del repositorio para averiguar donde está.
+  Recupérela sin usar github web (averigue cómo hacerlo, hay multiples
+  tutoriales en la web) y agréguela al final de su informe. Describa los pasos
+  que siguió para recuperar la imágen.  Recuerde que no puede simplemente
+  buscarla en la interfaz web de github, la idea es que aprenda a recuperar
+  archivos en un repositorio cualquiera de git (independiente de github.com).
+
+\item Repartición de puntaje: 40\% implementación y resolución de los
+   problemas (independiente de la calidad de su código); 45\% calidad del
+   reporte entregado: demuestra comprensión de los problemas y su solución,
+   claridad del lenguaje, calidad de las figuras utilizadas; 5\% aprueba a no
+   \texttt{PEP8}; 10\% diseño del código: modularidad, uso efectivo de nombres
+   de variables y funciones, docstrings, \underline{uso de git}, etc. Los 3
+   problemas tienen igual peso en la nota final.
+
+\item El informe debe ser entregado en formato \texttt{pdf}, este debe ser
+  claro sin información de más ni de menos. \textbf{Esto es muy importante, no
+  escriba de más, esto no mejorará su nota sino que al contrario}. La presente
+  tarea probablemente no requiere informes de más de 5 páginas. Asegúrese de
+  utilizar figuras efectivas y tablas para resumir sus resultados. Revise su
+  ortografía.
+
+  \item Evaluaremos su uso correcto de \texttt{python}. Si define una función
+  relativametne larga o con muchos parámetros, recuerde escribir el
+  \emph{docstring} que describa los parámetros que recibe la función, el
+  output, y el detalle de qué es lo que hace la función. Recuerde que
+  generalmente es mejor usar varias funciones cortas (que hagan una sola cosa
+  bien) que una muy larga (que lo haga todo).  Utilice nombres explicativos
+  tanto para las funciones como para las variables de su código. El mejor
+  nombre es aquel que permite entender qué hace la función sin tener que leer
+  su implementación ni su \emph{docstring}.
+
+\item Su código debe aprobar la guía sintáctica de estilo
+  (\href{https://www.python.org/dev/peps/pep-0008/}{\texttt{PEP8}}). En
+  \href{http://pep8online.com}{esta página} puede chequear si su código aprueba
+  \texttt{PEP8}.
+
+\item Utilice \texttt{git} durante el desarrollo de la tarea para mantener un
+  historial de los cambios realizados. La siguiente
+  \href{https://education.github.com/git-cheat-sheet-education.pdf}{cheat
+    sheet} le puede ser útil. {\bf Revisaremos el uso apropiado de la
+  herramienta y asignaremos una fracción del puntaje a este ítem.} Realice
+  cambios pequeños y guarde su progreso (a través de \emph{commits})
+  regularmente. No guarde código que no corre o compila (si lo hace por algún
+  motivo deje un mensaje claro que lo indique). Escriba mensajes claros que
+  permitan hacerse una idea de lo que se agregó y/o cambió de un
+  \texttt{commit} al siguiente.
+
+\item Al hacer el informe usted debe decidir qué es interesante y agregar las
+  figuras correspondientes. No olvide anotar los ejes, las unidades e incluir
+  una \emph{caption} o título que describa el contenido de cada figura.
+
+\item La tarea se entrega subiendo su trabajo a github. Trabaje en el código y
+  en el informe, haga \textit{commits} regulares y cuando haya terminado
+  asegúrese de hacer un último \texttt{commit} y luego un \texttt{push} para
+  subir todo su trabajo a github. \textbf{REVISE SU REPOSITORIO PARA ASEGURARSE
+  QUE SUBIÓ LA TAREA. SI UD. NO PUEDE VER SU INFORME EN GITHUB.COM, TAMPOCO
+PODREMOS NOSOTROS.}
+
+\end{itemize}
+%% FIN ENUNCIADO ===============================================================
+%% =============================================================================
+
+\end{document}

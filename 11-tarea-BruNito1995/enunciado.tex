@@ -1,0 +1,218 @@
+\documentclass[letter, 11pt]{article}
+%% ================================
+%% Packages =======================
+\usepackage[utf8]{inputenc}      %%
+\usepackage[T1]{fontenc}         %%
+\usepackage{lmodern}             %%
+\usepackage[spanish]{babel}      %%
+\usepackage{fullpage}            %%
+\usepackage{fancyhdr}            %%
+\usepackage{graphicx}            %%
+\usepackage{amsmath}             %%
+\usepackage{color}               %%
+\usepackage{mdframed}            %%
+\usepackage[colorlinks]{hyperref}%%
+%% ================================
+%% ================================
+
+%% ================================
+%% Page size/borders config =======
+\setlength{\oddsidemargin}{0in}  %%
+\setlength{\evensidemargin}{0in} %%
+\setlength{\marginparwidth}{0in} %%
+\setlength{\marginparsep}{0in}   %%
+\setlength{\voffset}{-0.5in}     %%
+\setlength{\hoffset}{0in}        %%
+\setlength{\topmargin}{0in}      %%
+\setlength{\headheight}{54pt}    %%
+\setlength{\headsep}{1em}        %%
+\setlength{\textheight}{8.5in}   %%
+\setlength{\footskip}{0.5in}     %%
+%% ================================
+%% ================================
+
+%% =============================================================
+%% Headers setup, environments, colors, etc.
+%%
+%% Header ------------------------------------------------------
+\fancypagestyle{firstpage}
+{
+  \fancyhf{}
+  \lhead{\includegraphics[height=4.5em]{LogoDFI.jpg}}
+  \rhead{FI3104-1 \semestre\\
+         Métodos Numéricos para la Ciencia e Ingeniería\\
+         Prof.: \profesor}
+  \fancyfoot[C]{\thepage}
+}
+
+\pagestyle{plain}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+%% -------------------------------------------------------------
+%% Environments -------------------------------------------------
+\newmdenv[
+  linecolor=gray,
+  fontcolor=gray,
+  linewidth=0.2em,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  skipabove=\topsep
+  skipbelow=\topsep,
+]{ayuda}
+%% -------------------------------------------------------------
+%% Colors ------------------------------------------------------
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+%% -------------------------------------------------------------
+%% Aliases ------------------------------------------------------
+\newcommand{\scipy}{\texttt{scipy}}
+%% -------------------------------------------------------------
+%% =============================================================
+%% =============================================================================
+%% CONFIGURACION DEL DOCUMENTO =================================================
+%% Llenar con la información pertinente al curso y la tarea
+%%
+\newcommand{\tareanro}{11}
+\newcommand{\fechaentrega}{15/12/2018 23:59 hrs}
+\newcommand{\semestre}{2018B}
+\newcommand{\profesor}{Valentino González}
+%% =============================================================================
+%% =============================================================================
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\begin{center}
+  {\uppercase{\LARGE \bf Tarea \tareanro}}\\
+  Fecha de entrega: \fechaentrega
+\end{center}
+
+
+%% =============================================================================
+%% ENUNCIADO ===================================================================
+\noindent{\large \bf Problema 1}
+
+En la tarea anterior ajustamos un modelo gaussiano a un espectro que contiene
+una línea de emisión (\texttt{espectro.dat}) y estimamos la incertidumbre
+asociada a los mejores parámetros para el modelo pero sin información sobre la
+incertidumbre asociada a los datos. Ahora expandiremos nuestro estudio
+agregando: 1) un modelo lorentziano y 2) decidiremos si los modelos son o no
+apropiados para modelar los datos.
+
+Complete los siguientes pasos:
+
+\renewcommand{\labelenumi}{(\arabic{enumi})}
+\begin{enumerate}
+
+\item Primero repita el modelo de la tarea anterior, es decir, modele la línea
+  como si tuviese una forma Gaussiana. El modelo completo será el de una línea
+  recta para el contínuo (2 parámetros) más una función gaussiana con 3
+  parámetros: amplitud, centro y varianza. Es decir, debe modelar 5 parámetros
+  a la vez.
+
+  \begin{ayuda}
+    \texttt{scipy.stats.norm} implementa la función Gaussiana si no quiere
+    escribirla Ud. mismo. La forma de usarla es la siguiente: \texttt{g = A *
+    scipy.stats.norm(loc=mu, scale=sigma).pdf(x)}; donde x es la longitud de
+    onda donde evaluar la función.
+  \end{ayuda}
+
+\item El segundo modelo más típico de ensanchamiento corresponde al llamado
+  perfil de Lorentz, Ud. debe implementarlo en este paso. De nuevo su modelo
+  será el de una línea recta pero esta vez menos un perfil de Lorentz que tiene
+  3 parámetros: amplitud, centro y varianza.  Nuevamente son 5 parámetros.
+
+  \begin{ayuda}
+    \texttt{scipy.stats.cauchy} implementa el perfil de Lorenz. Un ejemplo de
+    su uso sería: \texttt{l = A * scipy.stats.cauchy(loc=mu,
+    scale=sigma).pdf(x)}.
+  \end{ayuda}
+
+  Produzca un gráfico que muestre el espectro observado y los dos mejores fits
+  obtenidos con cada uno de los modelos (gaussiano vs. lorentziano). Provea
+  también una tabla con los mejores parámetros de cada modelo (con sus unidades
+  correspondientes) y el valor de $\chi^2$ en su mínimo.
+
+\item {\bf Idoneidad de los modelos.} En esta parte evaluaremos si cada uno de
+  los modelos es buenos o no para representar los datos.
+
+  \begin{ayuda}
+    \small
+    En este ejercicio en particular, ninguno de los dos modelos es el modelo
+    exacto a partir del cual se creó el espectro.
+  \end{ayuda}
+
+  Debido a que los errores asociados a este problema son desconocidos, los
+  tests de $\chi^2$ pueden no ser significativos para este caso por lo que
+  utilizaremos un test de Kolmogorov-Smirnov para determinar la probabilidad
+  asociada a la hipótesis nula de cada modelo (asuminedo que, al menos los
+  errores desconocidos son aproximadamente gaussianos). Utilice el test para
+  determinar: a) si los modelos son aceptables, y b) ¿puede determinar cuál
+  modelo es mejor de acuerdo a este test?
+
+\end{enumerate}
+
+
+\pagebreak
+\noindent{\bf Instrucciones importantes.}
+\begin{itemize}
+
+\item Repartición de puntaje: 40\% implementación y resolución del los
+   problemas (independiente de la calidad de su código; 10\% parte 1, 10\%
+   parte 2, 20\% parte 3); 45\% calidad del
+   reporte entregado: demuestra comprensión de los problemas y su solución,
+   claridad del lenguaje, calidad de las figuras utilizadas; 5\% aprueba a no
+   \texttt{PEP8}; 10\% diseño del código: modularidad, uso efectivo de nombres
+   de variables y funciones, docstrings, \underline{uso de git}, etc.
+
+\item El informe debe ser entregado en formato \texttt{pdf}, este debe ser
+  claro sin información de más ni de menos. \textbf{Esto es muy importante, no
+  escriba de más, esto no mejorará su nota sino que al contrario}. La presente
+  tarea probablemente no requiere informes de más de 4 páginas. Asegúrese de
+  utilizar figuras efectivas y tablas para resumir sus resultados. Revise su
+  ortografía.
+
+  \item Evaluaremos su uso correcto de \texttt{python}. Si define una función
+  relativametne larga o con muchos parámetros, recuerde escribir el
+  \emph{docstring} que describa los parámetros que recibe la función, el
+  output, y el detalle de qué es lo que hace la función. Recuerde que
+  generalmente es mejor usar varias funciones cortas (que hagan una sola cosa
+  bien) que una muy larga (que lo haga todo).  Utilice nombres explicativos
+  tanto para las funciones como para las variables de su código. El mejor
+  nombre es aquel que permite entender qué hace la función sin tener que leer
+  su implementación ni su \emph{docstring}.
+
+\item Su código debe aprobar la guía sintáctica de estilo
+  (\href{https://www.python.org/dev/peps/pep-0008/}{\texttt{PEP8}}). En
+  \href{http://pep8online.com}{esta página} puede chequear si su código aprueba
+  \texttt{PEP8}.
+
+\item Utilice \texttt{git} durante el desarrollo de la tarea para mantener un
+  historial de los cambios realizados. La siguiente
+  \href{https://education.github.com/git-cheat-sheet-education.pdf}{cheat
+    sheet} le puede ser útil. {\bf Revisaremos el uso apropiado de la
+  herramienta y asignaremos una fracción del puntaje a este ítem.} Realice
+  cambios pequeños y guarde su progreso (a través de \emph{commits})
+  regularmente. No guarde código que no corre o compila (si lo hace por algún
+  motivo deje un mensaje claro que lo indique). Escriba mensajes claros que
+  permitan hacerse una idea de lo que se agregó y/o cambió de un
+  \texttt{commit} al siguiente.
+
+\item Al hacer el informe usted debe decidir qué es interesante y agregar las
+  figuras correspondientes. No olvide anotar los ejes, las unidades e incluir
+  una \emph{caption} o título que describa el contenido de cada figura.
+
+\item La tarea se entrega subiendo su trabajo a github. Trabaje en el código y
+  en el informe, haga \textit{commits} regulares y cuando haya terminado
+  asegúrese de hacer un último \texttt{commit} y luego un \texttt{push} para
+  subir todo su trabajo a github. \textbf{REVISE SU REPOSITORIO PARA ASEGURARSE
+  QUE SUBIÓ LA TAREA. SI UD. NO PUEDE VER SU INFORME EN GITHUB.COM, TAMPOCO
+PODREMOS NOSOTROS.}
+
+\end{itemize}
+
+%% FIN ENUNCIADO ===============================================================
+%% =============================================================================
+
+\end{document}

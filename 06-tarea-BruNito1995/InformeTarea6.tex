@@ -1,0 +1,73 @@
+\setlength\parindent{0pt}
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{graphicx}
+
+\title{Informe Tarea 1 - M\'etodos Num\'ericos}
+\author{Bruno Quezada}
+\date{27 de septiebre}
+\begin{document}
+\maketitle
+
+\vspace{17cm}
+\begin{flushright}
+\textbf{Asignatura:} Métodos Numéricos - FI 3104-1\\
+\textbf{Profesor Cátedra:} Valentino González\\
+\textbf{Auxiliares:} José Vines, Jou-Hui Ho \\
+\end{flushright}
+\pagebreak
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[scale=0.4]{ex1}
+%\caption{Disposición geométrica %experimento 1, se puede notar en rojo la línea en que se efectuaron las mediciones hechas} 
+%\end{figure} 
+
+\section{Pregunta 1}
+
+\subsection{Describa la idea de escribir el main driver primero y llenar los huecos después ¿Por qué es buena idea?}
+Porque desde el punto de vista humano, es más fácil comprender y testear el código de esta manera. Al poner primero el main driver e ir  rellenando después, permite visualizar todos los pasos que son necesarios en forma simple. En el caso contrario que se escriba el programa como una sola gran función, es muy engorroso para evaluar y testear ya que al estar todo ligado no se puede evaluar el funcionamiento de cada parte por separado. El tiempo extra que toma programar en forma más inteligible para el programador será compenzado al simplificar las tareas de mejorar la eficiencia de cada una de sus partes y encontrar errores de programación.
+
+
+\subsection{¿Cuál es la idea detrás de la función mark\_filled?¿Por qué es buena idea crearla en vez del código original al que reemplaza?}
+La idea es que a esta función se le agrega un manejo de errores que puede evaluar si los parámetros ingresados están bien, además de entregar un mensaje de error más preciso para el usuario. Otra ventaja es que al programarla como una función separada, se le pueden realizar test en forma independiente para poder evaluar si la función está cumplinedo lo deseado
+
+\subsection{¿Qué es refactoring?}
+El refactoring es realizar cambios a la arquitectura de un código con el fin de mejorar su calidad, sin cambiar el comportamiento de este. 
+
+\subsection{¿Por qué es importante implementar test que sean sencillos de escribir?¿Cuál es la estrategia usada en el tutorial?}
+Es importante porque, por lo general, es necesario implimentar muchos test a nuestros programas y si estos son engorrosos de escribir será muy costoso testear el programa. La estrategia utilizada en el tutorial consiste en utilizar datos de tipo string para realizar el mapeo de la grilla, en vez de utilizar únicamente ciclos \textit{for} o \textit{while}.
+
+\subsection{El tutorial habla de dos grandes ideas para optimizar programas ¿Cuáles son esas ideas? Descríbalas}
+\textbf{Intercambio memoria y tiempo de cómputo:} almacenar información redundante para prevenir recalcular valores implica un mayor uso de memoria pero un menor tiempo de cómputo.
+
+\textbf{Intercambio de tiempo de programación con eficiencia del procesador:}
+
+trade human time for machine performance
+\subsection{¿Que es lazy evaluation?}
+La "lazy evaluation" consiste en no calcular valores de variables del programa si no han de ser usados. En el caso del tutorial, la función no calcula valores de las celdas que no sean adyacentes a la zona rellena, ya que no clasifican como candidatos.
+
+\subsection{Describa la "other moral" del tutorial}
+Consiste en partir escribiendo una versión simple de implementar y fácil de entender primero para luego luego implementar de a poco las mejoras, atacando cada parte por separado.
+
+\section{Pregunta 2}
+
+
+
+\subsection{Introducción}
+
+
+\subsection{Procedimiento}
+
+
+\subsection{Resultados}
+
+
+\subsection{Análisis y Conclusiones}
+ 
+\end{document}

@@ -1,0 +1,17 @@
+# year  N_MPhD  U
+# year : año de la medición.
+# N_MPhD : Número de doctorados en matemática otorgados en EE.UU. en el correspondiente año.
+# U : Cantidad de Uranio enriquecido (en libras) almacenado en plantas nucleares de EE.UU. en el correspondiente año.
+1996    1122    66.1
+1997    1123    65.9
+1998    1177    65.8
+1999    1083    58.3
+2000    1050    54.8
+2001    1010    55.6
+2002     919    53.5
+2003     993    45.6
+2004    1076    57.7
+2005    1205    64.7
+2006    1325    77.5
+2007    1393    81.2
+2008    1399    81.9
